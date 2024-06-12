@@ -1,0 +1,52 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model UsageGuideline {
+  createdAt      DateTime @default(now())
+  description    String?
+  guidelineTitle String?
+  id             String   @id @default(cuid())
+  updatedAt      DateTime @updatedAt
+}
+
+model Insecticide {
+  createdAt    DateTime @default(now())
+  id           String   @id @default(cuid())
+  productName  String?
+  updatedAt    DateTime @updatedAt
+  usageDetails String?
+}
+
+model Pesticide {
+  createdAt    DateTime @default(now())
+  id           String   @id @default(cuid())
+  productName  String?
+  updatedAt    DateTime @updatedAt
+  usageDetails String?
+}
+
+model Fertilizer {
+  createdAt    DateTime @default(now())
+  id           String   @id @default(cuid())
+  productName  String?
+  updatedAt    DateTime @updatedAt
+  usageDetails String?
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
