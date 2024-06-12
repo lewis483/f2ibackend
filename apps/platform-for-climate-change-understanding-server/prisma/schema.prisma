@@ -1,0 +1,44 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model CropYieldPrediction {
+  createdAt       DateTime @default(now())
+  cropName        String?
+  id              String   @id @default(cuid())
+  updatedAt       DateTime @updatedAt
+  yieldPrediction String?
+}
+
+model ClimateData {
+  createdAt DateTime @default(now())
+  dataName  String?
+  details   String?
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Alert {
+  alertName String?
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  message   String?
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
