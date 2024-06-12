@@ -1,0 +1,53 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Consumer {
+  createdAt DateTime @default(now())
+  email     String?
+  id        String   @id @default(cuid())
+  name      String?
+  updatedAt DateTime @updatedAt
+}
+
+model Cart {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  items     Json?
+  updatedAt DateTime @updatedAt
+}
+
+model Payment {
+  createdAt     DateTime @default(now())
+  id            String   @id @default(cuid())
+  order         Order?   @relation(fields: [orderId], references: [id])
+  orderId       String?
+  paymentStatus String?
+  updatedAt     DateTime @updatedAt
+}
+
+model Order {
+  createdAt   DateTime  @default(now())
+  id          String    @id @default(cuid())
+  orderDate   DateTime?
+  payments    Payment[]
+  totalAmount Float?
+  updatedAt   DateTime  @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
